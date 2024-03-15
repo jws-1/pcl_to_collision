@@ -5,13 +5,13 @@ import numpy as np
 from moveit_msgs.msg import CollisionObject, AttachedCollisionObject
 from shape_msgs.msg import SolidPrimitive
 
-from sensor_msgs import PointCloud2
+from sensor_msgs.msg import PointCloud2
 from geometry_msgs.msg import Pose, Point, Quaternion
 import moveit_commander
 import sys
 import rospy
 
-from lasr_vision_msgs import YoloDetection3D
+from lasr_vision_msgs.srv import YoloDetection3D
 
 
 def add_collision_object(id, pointcloud, planning_scene, num_primitives=200):
