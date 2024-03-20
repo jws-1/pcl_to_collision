@@ -14,7 +14,9 @@ import cv2
 from lasr_vision_msgs.srv import YoloDetection3D
 
 
-def add_collision_object(id, pcl, indices, planning_scene, method="exhaustive"):
+def add_collision_object(
+    id, pcl, indices, planning_scene, method="exhaustive", frame_id="map"
+):
 
     # # pcl = rnp.numpify(pointcloud)
     # cloud_obj = np.concatenate(
@@ -60,8 +62,8 @@ def add_collision_object(id, pcl, indices, planning_scene, method="exhaustive"):
             co.primitives.append(primitive)
             pose_array.poses.append(primitive_pose)
 
-        co.header = pcl.header
         co.primitive_poses = pose_array.poses
+
     elif method == "bounding_cuboid":
         primitive = SolidPrimitive()
         primitive.type = primitive.BOX
@@ -84,7 +86,9 @@ def add_collision_object(id, pcl, indices, planning_scene, method="exhaustive"):
         )
         co.primitives.append(primitive)
         co.primitive_poses.append(primitive_pose)
-        co.header = pcl.header
+    co.header = pcl.header
+    # co.header.frame_id = "base_footprint"
+    # co.header.frame_id = frame_id
 
     rospy.loginfo("Added to planning scene!!")
     rospy.loginfo(co)
